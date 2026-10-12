@@ -8,3 +8,6 @@ My practical DevOps learning project.
 - Learn Terraform
 - Set up Prometheus and Grafana
 - Learn Kubernetes
+
+## My goal
+Become a DevOps engineer through practical projects.
