@@ -11,3 +11,7 @@ My practical DevOps learning project.
 
 ## My goal
 Become a DevOps engineer through practical projects.
+
+## Current progress
+- Git basics
+- Branches and commits
