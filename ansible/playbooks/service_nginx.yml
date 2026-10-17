@@ -1,0 +1,12 @@
+---
+- name: Manage Nginx service
+  hosts: local
+  become: true
+  gather_facts: false
+
+  tasks:
+    - name: Ensure Nginx is running and enabled
+      ansible.builtin.service:
+        name: nginx
+        state: started
+        enabled: true

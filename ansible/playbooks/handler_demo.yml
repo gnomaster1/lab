@@ -1,0 +1,16 @@
+---
+- name: Learn Ansible handlers
+  hosts: local
+  become: true
+  gather_facts: false
+
+  tasks:
+    - name: Simulate configuration changes
+      ansible.builtin.command:
+        cmd: /usr/bin/true
+      changed_when: false
+      notify: Demo handler
+  handlers:
+    - name: Demo handler
+      ansible.builtin.debug:
+        msg: "Handler was triggered"

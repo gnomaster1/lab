@@ -1,0 +1,12 @@
+- name: Ensure lab directory exists
+  hosts: local
+  gather_facts: false 
+
+
+  tasks:
+    - name: Create lab directory
+      ansible.builtin.file:
+        path: 'run/media/ss/Локальный диск/my_learning_project/'
+        state: absent
+        mode: '0755'
+

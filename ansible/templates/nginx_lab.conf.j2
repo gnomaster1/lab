@@ -1,0 +1,12 @@
+
+server {
+    listen {{ nginx_lab_port }};
+    server_name localhost;
+
+    root /var/www/lab;
+    index index.html;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}

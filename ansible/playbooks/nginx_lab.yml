@@ -1,0 +1,48 @@
+---
+- name: Change Nginx configuration
+  hosts: all
+  become: true 
+  
+
+  tasks:
+    - name: create new directory
+      ansible.builtin.file:
+        path: /var/www/lab
+        state: directory
+      tags: content
+    
+  
+    - name: html
+      ansible.builtin.copy:
+        dest: /var/www/lab/index.html
+        content: 'content'
+        validate: /usr/sbin/nginx -t -c %s
+      tags: content
+    
+    - name: nginx config
+      ansible.builtin.template:
+        src: ../templates/nginx_lab.conf.j2
+        dest: /etc/nginx/sites-available/lab
+      notify: Reload nginx
+      tags: nginx 
+
+    - name: Create a symbolic link
+      ansible.builtin.file:
+        src: /etc/nginx/sites-available/lab
+        dest: /etc/nginx/sites-enabled/lab   
+        state: link
+      tags: nginx 
+    
+    
+    - name: Check nginx configuration
+      ansible.builtin.command:
+        cmd: nginx -t
+      changed_when: false
+      tags: nginx
+
+  handlers:
+    - name: Reload nginx
+      ansible.builtin.service:
+        name: nginx
+        state: reloaded 
+

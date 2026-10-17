@@ -1,0 +1,17 @@
+---
+- name: Check Nginx configuration
+  hosts: local
+  become: true
+  gather_facts: false
+
+  tasks:
+    - name: Check nginx configuration
+      ansible.builtin.command:
+        cmd: nginx -t
+      changed_when: false
+   
+    - name: Start nginx
+      ansible.builtin.service:
+        name: nginx
+        state: started
+        
