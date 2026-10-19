@@ -1,17 +1,20 @@
 ---
-- name: Check Nginx configuration
-  hosts: local
-  become: true
+- name: Check Nginx response
+  hosts: all
   gather_facts: false
 
   tasks:
-    - name: Check nginx configuration
-      ansible.builtin.command:
-        cmd: nginx -t
-      changed_when: false
-   
-    - name: Start nginx
-      ansible.builtin.service:
-        name: nginx
-        state: started
-        
+    - name: check nginx port 
+      ansible.builtin.uri:
+        url: http://localhost:8084
+        method: GET
+        status_code: [404, 200]
+      register: nginx_response 
+    
+    - name: show http status
+      ansible.builtin.assert:
+        that:
+          - nginx_response.status == 200
+        fail_msg: "FAILED"
+        success_msg: "SUCCESS"
+    
