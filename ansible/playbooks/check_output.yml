@@ -1,0 +1,11 @@
+- name: Check output
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: check nginx config 
+      ansible.builtin.command:
+        cmd: echo "ERROR"
+      changed_when: false
+      register: command_result
+      failed_when: "'ERROR' in  command_result.stdout"

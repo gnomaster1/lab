@@ -1,0 +1,11 @@
+- name: Check http
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: check curl
+      ansible.builtin.command:
+        cmd: curl -o /dev/null -s -w '%{http_code}\n' http://localhost:8084
+      changed_when: false
+      register: command_result
+      failed_when: command_result.stdout != "200"

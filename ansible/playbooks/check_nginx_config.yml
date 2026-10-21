@@ -1,0 +1,10 @@
+- name: Check Nginx config
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: check nginx config 
+      ansible.builtin.command:
+        cmd: nginx -t
+      changed_when: false
+      

@@ -1,0 +1,25 @@
+- name: healthcheck nginx
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: check nginx
+      ansible.builtin.command:
+        cmd: nginx -t
+      changed_when: false
+    
+    
+    - name: check http response
+      ansible.builtin.uri:
+        url: http://localhost:8084
+        method: GET
+        status_code: 200
+      register: nginx_response
+    
+    - name: check http code
+      ansible.builtin.assert:
+        that:
+          - nginx_response.status == 200
+        fail_msg: "ERROR"
+        success_msg: "SUCCESS"
+
