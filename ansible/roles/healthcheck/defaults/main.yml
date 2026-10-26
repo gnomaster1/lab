@@ -1,0 +1,4 @@
+#SPDX-License-Identifier: MIT-0
+---
+# defaults file for ansible/roles/healthcheck
+healthcheck_url: "http://localhost:{{ nginx_lab_port  }}"

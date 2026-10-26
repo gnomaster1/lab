@@ -1,0 +1,7 @@
+- name: Run healthcheck role
+  hosts: localhost
+  gather_facts: false
+ 
+ 
+  roles:
+    - healthcheck
