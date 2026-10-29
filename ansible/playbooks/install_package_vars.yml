@@ -1,0 +1,15 @@
+---
+- name: Install_package_vars
+  hosts: localhost
+  become: true
+  gather_facts: false
+  
+  vars:
+   package_name: curl
+
+  tasks:
+    - name: install_curl
+      ansible.builtin.apt: 
+        name: "{{package_name}}"
+        state: present
+ 

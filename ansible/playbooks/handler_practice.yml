@@ -1,0 +1,25 @@
+
+---
+
+- name: prectice handlers
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: create first file
+      ansible.builtin.copy:
+        content: "Hello Ansible"
+        dest: /tmp/ansible-handler-demo.txt
+      notify: show file changed
+    
+    - name: create second file
+      ansible.builtin.copy:
+        content: "Second file"
+        dest: /tmp/ansible-handler-demo-2.txt
+      notify: show file changed
+  
+  
+  handlers:
+   - name:  show file changed
+     ansible.builtin.command:
+       cmd: echo "Handler executed"     

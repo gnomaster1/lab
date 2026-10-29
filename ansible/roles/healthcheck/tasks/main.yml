@@ -1,6 +1,11 @@
 #SPDX-License-Identifier: MIT-0
 ---
 # tasks file for ansible/roles/healthcheck
+- name: validate nginx port
+  ansible.builtin.assert:
+    that:
+      - nginx_lab_port >= 1  and nginx_lab_port <= 65535
+
 
 - name: Send http request
   ansible.builtin.uri:

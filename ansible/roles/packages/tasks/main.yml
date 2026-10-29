@@ -1,0 +1,13 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for ansible/roles/packages
+  - name: update apt cache
+    ansible.builtin.apt:
+      update_cache: true
+      cache_valid_time: 3600
+    when: ansible_facts['distribution'] == "Ubuntu"
+  
+  - name: install curl, htop
+    ansible.builtin.apt:
+      pkg: "{{ packages_list }}" 
+      state: present

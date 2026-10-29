@@ -1,0 +1,24 @@
+---
+- name: template practice
+  hosts: localhost
+  gather_facts: false
+  vars_files:
+    - ../inventory/group_vars/dev_vault.yml
+
+  tasks:
+    - name: template
+      ansible.builtin.template:
+        src: ../templates/nginx_lab.conf.j2
+        dest: /tmp/nginx-lab.conf 
+      notify: reload nginx config
+
+    - name: verify vault variable is loaded
+      ansible.builtin.assert:
+        that:
+          - vault_demo_password is defined
+        success_msg: "Vault variable loaded successfully"
+  
+  handlers:
+    - name: reload nginx config
+      ansible.builtin.debug:
+        msg: "Template changed, handler executed"

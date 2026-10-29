@@ -1,0 +1,16 @@
+---
+- name: install_packages_loop
+  hosts: localhost
+  become: true
+  gather_facts: false
+
+  tasks:
+    - name: loops
+      ansible.builtin.apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - curl
+        - htop 
+        - nginx
+

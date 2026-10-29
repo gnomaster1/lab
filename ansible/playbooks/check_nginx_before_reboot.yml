@@ -1,0 +1,33 @@
+---
+- name: check nginx before reboot
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: check config nginx
+      ansible.builtin.command: 
+        cmd: nginx -t
+      changed_when: false
+   
+    
+
+    - name: touch dir
+      ansible.builtin.copy:
+        dest: /tmp/nginx-test.conf
+        content: "test config"
+      register: config_result
+
+    - name: nginx
+      ansible.builtin.service:
+        name: nginx
+        state: reloaded
+      when: config_result.changed
+    
+    
+    - name: show copy result
+      ansible.builtin.debug:
+        var: config_result
+ 
+    - name: nginx config is valid
+      ansible.builtin.debug:
+        msg: "Nginx config is valid"

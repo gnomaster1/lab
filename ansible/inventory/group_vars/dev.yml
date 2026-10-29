@@ -1,2 +1,4 @@
 ---
 nginx_lab_port: 8084
+packages_list: [curl, htop]
+nginx_lab_server_name: "localhost"

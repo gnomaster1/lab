@@ -1,0 +1,4 @@
+#SPDX-License-Identifier: MIT-0
+---
+# defaults file for ansible/roles/packages
+packages_list: [curl, htop]

@@ -1,0 +1,27 @@
+- name: create_directories_loop
+  hosts: localhost
+  become: true
+  gather_facts: false 
+
+  vars:
+    directories:
+      - path: /tmp/devops_lab/logs
+        mode: '0755'
+        enabled: true
+      - path: /tmp/devops_lab/config
+        mode: '0750'
+        enabled: false
+      - path: /tmp/devops_lab/scripts
+        mode: '0755'
+        enabled: true
+
+
+
+  tasks:
+    - name: Create directories 
+      ansible.builtin.file:
+        path: '{{ item.path }}'
+        state: directory
+        mode: '{{ item.mode }}'
+      loop: '{{ directories }}'
+      when: item.enabled

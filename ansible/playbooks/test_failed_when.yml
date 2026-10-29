@@ -1,0 +1,12 @@
+
+---
+- name: practice failed_when
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: check command output
+      ansible.builtin.command: echo ERROR
+      register: command_result
+      changed_when: false
+      failed_when: "'ERROR' in command_result.stdout"

@@ -1,0 +1,11 @@
+- name: install_curl_version 
+  hosts: localhost
+  become: true
+  gather_facts: false
+  
+
+  tasks:
+    - name: install_version
+      ansible.builtin.apt:
+        name: "curl=8.18.0-1ubuntu2.8"
+        state: present

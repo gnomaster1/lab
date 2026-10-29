@@ -1,0 +1,18 @@
+- name: install packages
+  hosts: localhost
+  become: true
+  gather_facts: false
+  
+
+  tasks:
+    - name: update apt cache
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 3600
+    
+    - name: install curl, htop
+      ansible.builtin.apt:
+        pkg:
+        - curl
+        - htop
+        state: present

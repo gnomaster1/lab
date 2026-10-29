@@ -1,0 +1,33 @@
+- name: Check http status
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: http code
+      block:
+        - name: send http request
+          ansible.builtin.uri:
+            url: http://localhost:8084
+            method: GET
+            status_code: [200,404]
+          changed_when: false
+          register: http_check
+
+        - name: validate http status
+          ansible.builtin.assert:
+            that:
+              - http_check.status == 200
+            fail_msg: "ERROR"
+            success_msg: "SUCCESS"
+        
+   
+      rescue:
+        - name: report connection errors
+          ansible.builtin.debug:
+            msg: "Nginx healthcheck failed"
+
+        - name: fail healthcheck
+          ansible.builtin.fail:
+            msg: "Healthcheck failed"
+          
+
